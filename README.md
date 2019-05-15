@@ -5,6 +5,7 @@ Chef Automate configuration steps on AWS Marketplace
 - [Reconfigure Chef Starter Kit](#reconfigure-chef-starter-kit)
 - [Generate an SSH key](#generate-an-ssh-key)
 - [Set your Git identity](#set-your-git-identity)
+- [Configure the runner](#configure-the-runner)
 
 Lab URL: https://learn.chef.io/modules/deploy-infrastructure/ubuntu/aws/set-up-your-workstation#/
 
@@ -48,3 +49,20 @@ git config --global user.name "Jane Smith"
 git config --global user.email jsmith@example.com
 ```
 
+## Configure the runner
+Next, you need to configure software on your runner. The easiest way to do that is from your Chef Automate instance.
+
+Your Chef Automate server requires the SSH key (or password) that you use to connect to your runner. If you use key-based authentication to connect to your runner, copy the SSH key you use to connect to your runner from your workstation to your Chef Automate server. Here's an example that uses the scp utility (note the trailing colon : character at the end of the command.)
+
+```
+scp -i ~/.ssh/private_key ~/.ssh/private_key ec2-user@ec2-34-229-169-235.compute-1.amazonaws.com:
+```
+
+or if you have generate .pem file from AWS you can copy this file. In my case it's looks like this:
+
+```
+scp /home/vagrant/chef-automate/chef-automate-key.pem your-future-runner-fqdn:/home/ec2-user/keys/chef-automate-key.pem
+```
+
+
+use ``` ssh -i "chef-automate-key.pem" ec2-user@ec2-3-214-123-171.compute-1.amazonaws.com ``` to connect to chef-automate server from your runner 
