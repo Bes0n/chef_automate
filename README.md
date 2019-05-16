@@ -58,11 +58,17 @@ Your Chef Automate server requires the SSH key (or password) that you use to con
 scp -i ~/.ssh/private_key ~/.ssh/private_key ec2-user@ec2-34-229-169-235.compute-1.amazonaws.com:
 ```
 
-or if you have generate .pem file from AWS you can copy this file. In my case it's looks like this:
+or if you have generated .pem file from AWS you can copy this file. In my case it's looks like this:
 
 ```
 scp /home/vagrant/chef-automate/chef-automate-key.pem your-future-runner-fqdn:/home/ec2-user/keys/chef-automate-key.pem
 ```
 
 
-use ``` ssh -i "chef-automate-key.pem" ec2-user@ec2-3-214-123-171.compute-1.amazonaws.com ``` to connect to chef-automate server from your runner 
+use ``` scp -i "chef-automate-key.pem" chef-automate-key.pem ec2-user@ec2-3-214-123-171.compute-1.amazonaws.com:/home/ec2-user/chef-automate-key.pem ``` to connect to chef-automate server from your runner 
+
+copy your runner's private key on chef-automate server
+``` sudo scp -i 'chef-automate-key.pem' ~/.ssh/id_rsa ec2-user@ec2-3-214-123-171.compute-1.amazonaws.com:/home/ec2-user/.ssh/id_rsa ```
+
+or you can configure runner by using .pem file
+``` sudo automate-ctl install-runner ec2-54-174-222-194.compute-1.amazonaws.com centos -i 'chef-automate-key.pem' ```
