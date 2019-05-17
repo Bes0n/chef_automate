@@ -6,6 +6,7 @@ Chef Automate configuration steps on AWS Marketplace
 - [Generate an SSH key](#generate-an-ssh-key)
 - [Set your Git identity](#set-your-git-identity)
 - [Configure the runner](#configure-the-runner)
+- [Set up knife-ec2](#set-up-knife-ec2)
 
 Lab URL: https://learn.chef.io/modules/deploy-infrastructure/ubuntu/aws/set-up-your-workstation#/
 
@@ -72,3 +73,15 @@ copy your runner's private key on chef-automate server
 
 or you can configure runner by using .pem file
 ``` sudo automate-ctl install-runner ec2-54-174-222-194.compute-1.amazonaws.com centos -i 'chef-automate-key.pem' ```
+
+## Set up knife-ec2
+https://learn.chef.io/modules/upgrade-chef-client/aws#step3
+
+To bootstrap your node you need to run following command, for more information follow the link 
+``` knife ec2 server create --image ami-05a36d3b9aa4a17ac --ssh-key 'chef-automate-key'  --flavor t2.micro --ssh-user ubuntu --identity-file "C:\Chef\chef_automate\chef-automate-key.pem" --bootstrap-version 12.21.31 --security-group-id sg-0f15d169b77163332 --region us-east-1 --run-list 'recipe[custom_apache]' ```
+
+Extract tar.gz archive with 7-zip
+```
+& 'C:\Program Files\7-Zip\7z' x .\chef_client_updater-3.2.4.tar.gz
+& 'C:\Program Files\7-Zip\7z' x .\chef_client_updater-3.2.4.tar -ocookbooks
+```
